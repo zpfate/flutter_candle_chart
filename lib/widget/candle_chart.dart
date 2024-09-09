@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_candle_chart/candle_data.dart';
+import 'package:flutter_candle_chart/model/candle_data.dart';
 import 'package:flutter_candle_chart/style/chart_style.dart';
 
 class CandleChart extends StatefulWidget {

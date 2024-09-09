@@ -48,7 +48,7 @@ class _MyHomePageState extends State<MyApp> {
   }
 
   Widget _changeModeButton() {
-    return     Obx(() {
+    return Obx(() {
       return IconButton(
         icon: Icon(_rootLogic.darkMode.value ? Icons.dark_mode : Icons
             .light_mode),
