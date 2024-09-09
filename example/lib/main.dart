@@ -1,3 +1,4 @@
+import 'package:example/mock_data.dart';
 import 'package:example/root_logic.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_candle_chart/flutter_candle_chart.dart';
@@ -35,7 +36,7 @@ class _MyHomePageState extends State<MyApp> {
         ),
         body: GetBuilder(
           builder: (RootLogic logic) {
-            return const CandleChart();
+            return CandleChart(candles: MockData.candles,);
           },
         ),
         floatingActionButton: FloatingActionButton(

@@ -7,7 +7,7 @@ class MockData {
           open: e[1].toDouble(),
           high: e[2].toDouble(),
           low: e[3].toDouble(),
-          close: e[4].todouble(),
+          close: e[4].toDouble(),
           volume: e[5].toDouble()))
       .toList();
 
