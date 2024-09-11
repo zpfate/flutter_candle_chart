@@ -20,4 +20,9 @@ class CandleData {
       required this.low,
       required this.timestamp,
       required this.volume});
+
+  /// 是涨
+  bool get isRise {
+    return close > open;
+  }
 }

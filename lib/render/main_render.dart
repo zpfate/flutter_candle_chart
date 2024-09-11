@@ -1,9 +1,6 @@
 
-
 import 'dart:math';
 import 'dart:ui';
-
-import 'package:flutter_candle_chart/model/candle_data.dart';
 import 'package:flutter_candle_chart/model/painter_params.dart';
 
 class MainRender {
@@ -11,13 +8,12 @@ class MainRender {
   static void drawMainChart(Canvas canvas, Size size, PainterParams params) {
 
     canvas.save();
-    canvas.clipRect(Offset.zero & Size(size.width, params.mainChartHeight));
+    canvas.clipRect(Offset.zero & Size(size.width, params.mainHeight));
     _drawCandles(canvas, size, params);
     canvas.restore();
   }
 
   static void _drawCandles(Canvas canvas, Size size, PainterParams params) {
-
     for (int i = 0; i < params.candles.length; i++) {
       _drawSingleDay(canvas, params, i, size);
     }
@@ -26,10 +22,8 @@ class MainRender {
   static void _drawSingleDay(Canvas canvas, PainterParams params, int i, Size size) {
 
     final candleWidth = params.chartStyle.candleWidth;
-
     final candle = params.candles[i];
     final x = i * candleWidth;
-
     final thickWidth = max(candleWidth * 0.8, 0.8);
     // final thinWidth = max(params.candleWidth * 0.2, 0.2);
     // Draw price bar
