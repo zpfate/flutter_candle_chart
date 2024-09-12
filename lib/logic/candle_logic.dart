@@ -1,10 +1,9 @@
 
-
 import 'dart:ui';
-
 import 'package:flutter_candle_chart/model/candle_data.dart';
 import 'package:flutter_candle_chart/model/painter_params.dart';
 import 'package:get/get.dart';
+
 
 class CandleLogic extends GetxController {
 
@@ -12,7 +11,6 @@ class CandleLogic extends GetxController {
   PainterParams? painterParams;
 
   late double startOffset;
-
   void initData(List<CandleData> candles) {
 
   }
@@ -20,7 +18,6 @@ class CandleLogic extends GetxController {
   void handleResize(Size size) {
 
   }
-
 
   void refreshData(List<CandleData> data) {
     candles = data;
@@ -31,7 +28,4 @@ class CandleLogic extends GetxController {
     candles.insertAll(0, data);
     update();
   }
-
-
-
 }

@@ -17,12 +17,12 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyApp> {
-  final _rootLogic = Get.put(RootLogic());
 
+  final _rootLogic = Get.put(RootLogic());
   final _candleLogic = Get.put(CandleLogic());
+
   @override
   Widget build(BuildContext context) {
-
 
     return MaterialApp(
       title: 'Flutter Candle Chart Demo',
@@ -41,7 +41,8 @@ class _MyHomePageState extends State<MyApp> {
         body: GetBuilder(
           builder: (RootLogic logic) {
             return Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+              color: Colors.grey,
+                margin: const EdgeInsets.symmetric(horizontal: 20),
                 child: CandleChart(
                   candles: MockData.candles,
                   logic: _candleLogic,
