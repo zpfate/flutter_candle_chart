@@ -11,11 +11,9 @@ class ChartPainter extends CustomPainter {
     required this.params,
   });
 
-
   @override
   void paint(Canvas canvas, Size size) {
     // TODO: implement paint
-
     MainRender.drawMainChart(canvas, size, params);
   }
 

@@ -4,13 +4,17 @@ import 'package:flutter_candle_chart/model/candle_data.dart';
 import 'package:flutter_candle_chart/model/painter_params.dart';
 import 'package:get/get.dart';
 
-
 class CandleLogic extends GetxController {
 
   List<CandleData> candles = [];
   PainterParams? painterParams;
+  double startOffset = 0;
 
-  late double startOffset;
+  bool isScaling = false;
+  bool isLongPressing = false;
+
+  double width = 0.0;
+
   void initData(List<CandleData> candles) {
 
   }
@@ -28,4 +32,19 @@ class CandleLogic extends GetxController {
     candles.insertAll(0, data);
     update();
   }
+
+
+
+  setWidth(double w) {
+    width = w;
+  }
+
+  double get minCandleWidth {
+    return 1;
+  }
+
+  double get maxCandleWidth {
+    return 10;
+  }
+
 }

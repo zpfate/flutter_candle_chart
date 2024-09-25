@@ -43,8 +43,6 @@ class _CandleChartState extends State<CandleChart> {
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
 
-
-      Get.toNamed("page", preventDuplicates: false);
       final size = constraints.biggest;
       return GetBuilder<CandleLogic>(builder: (logic) {
         return _gestureWidget(size);
