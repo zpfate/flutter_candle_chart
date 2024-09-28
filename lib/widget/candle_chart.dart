@@ -35,7 +35,7 @@ class _CandleChartState extends State<CandleChart> {
   @override
   void initState() {
     // TODO: implement initState
-    _logic.initData(widget.candles);
+    _logic.refreshData(widget.candles);
     super.initState();
   }
 
@@ -44,6 +44,7 @@ class _CandleChartState extends State<CandleChart> {
     return LayoutBuilder(builder: (context, constraints) {
 
       final size = constraints.biggest;
+      _logic.handleResize(size);
       return GetBuilder<CandleLogic>(builder: (logic) {
         return _gestureWidget(size);
       });

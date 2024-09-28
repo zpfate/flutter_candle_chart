@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter_candle_chart/model/candle_data.dart';
 import 'package:flutter_candle_chart/style/chart_style.dart';
 

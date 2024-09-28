@@ -15,14 +15,23 @@ class CandleLogic extends GetxController {
 
   double width = 0.0;
 
+  late Size size;
+
   void initData(List<CandleData> candles) {
 
   }
 
   void handleResize(Size size) {
+    if (size == this.size) {
+      return;
+    }
+    this.size = size;
+
+    startOffset = candles.length * painterParams!.chartStyle.candleWidth;
 
   }
 
+  /// 刷新数据
   void refreshData(List<CandleData> data) {
     candles = data;
     update();
@@ -32,8 +41,6 @@ class CandleLogic extends GetxController {
     candles.insertAll(0, data);
     update();
   }
-
-
 
   setWidth(double w) {
     width = w;
