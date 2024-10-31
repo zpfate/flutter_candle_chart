@@ -13,8 +13,12 @@ class ChartPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    // TODO: implement paint
+
+    /// 主图绘制逻辑
     MainRender.drawMainChart(canvas, size, params);
+
+
+
   }
 
   @override

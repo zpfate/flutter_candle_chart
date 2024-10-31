@@ -40,13 +40,36 @@ class _MyHomePageState extends State<MyApp> {
         ),
         body: GetBuilder(
           builder: (RootLogic logic) {
-            return Container(
-              color: Colors.grey,
+            return Column(
+              children: [
+                Container(
+                color: Colors.grey,
+                height: 300,
                 margin: const EdgeInsets.symmetric(horizontal: 20),
                 child: CandleChart(
                   candles: MockData.candles,
                   logic: _candleLogic,
-                ));
+                )),
+
+
+                Wrap(
+                  alignment: WrapAlignment.spaceEvenly,
+                  children: [
+                    _button("Time Mode"),
+                    _button("K Line Mode"),
+                    _button("Trend Line"),
+
+                    _button("Main MA"),
+                    _button("Main MA"),
+                    _button("Main MA"),
+                    _button("Main MA"),
+                    _button("Main MA"),
+
+                  ],
+                )
+
+              ],
+            );
           },
         ),
         floatingActionButton: FloatingActionButton(
@@ -59,6 +82,29 @@ class _MyHomePageState extends State<MyApp> {
       ),
     );
   }
+
+
+  Widget _button(String text, {VoidCallback? onPressed}) {
+    return TextButton(
+      onPressed: () {
+        if (onPressed != null) {
+          onPressed();
+          setState(() {});
+        }
+      },
+      style: TextButton.styleFrom(
+        // primary: Colors.white,
+        minimumSize: const Size(88, 44),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(2.0)),
+        ),
+        backgroundColor: Colors.blue,
+      ),
+      child: Text(text),
+    );
+  }
+
 
   Widget _changeModeButton() {
     return Obx(() {

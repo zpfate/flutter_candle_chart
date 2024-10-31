@@ -8,6 +8,7 @@ class CandleLogic extends GetxController {
 
   List<CandleData> candles = [];
   PainterParams? painterParams;
+
   double startOffset = 0;
 
   bool isScaling = false;
@@ -17,18 +18,16 @@ class CandleLogic extends GetxController {
 
   late Size size;
 
+  /// 初始化数据
   void initData(List<CandleData> candles) {
 
   }
 
+  /// 处理大小变化
   void handleResize(Size size) {
-    if (size == this.size) {
-      return;
-    }
     this.size = size;
 
-    startOffset = candles.length * painterParams!.chartStyle.candleWidth;
-
+    // startOffset = candles.length * painterParams!.chartStyle.candleWidth;
   }
 
   /// 刷新数据
@@ -37,19 +36,24 @@ class CandleLogic extends GetxController {
     update();
   }
 
+
+  /// 加载更多数据
   void loadData(List<CandleData> data) {
     candles.insertAll(0, data);
     update();
   }
 
+  /// 设置宽度
   setWidth(double w) {
     width = w;
   }
 
+  /// 获取蜡烛最小宽度
   double get minCandleWidth {
     return 1;
   }
 
+  /// 获取蜡烛最大宽度
   double get maxCandleWidth {
     return 10;
   }
