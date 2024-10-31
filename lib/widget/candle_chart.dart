@@ -30,17 +30,15 @@ class CandleChart extends StatefulWidget {
 
 class _CandleChartState extends State<CandleChart> {
 
-
   /// 获取logic
   CandleLogic get _logic => widget.logic ?? Get.put(CandleLogic());
-
   PainterParams? _painterParams;
 
   @override
   void initState() {
     // TODO: implement initState
 
-    _logic.refreshData(widget.candles);
+
     super.initState();
   }
 
@@ -49,7 +47,7 @@ class _CandleChartState extends State<CandleChart> {
     return LayoutBuilder(builder: (context, constraints) {
 
       final size = constraints.biggest;
-      _logic.handleResize(size);
+      _logic.handleResize(size, widget.visibleCount);
 
       _painterParams = PainterParams(
           size: size,
@@ -98,7 +96,7 @@ class _CandleChartState extends State<CandleChart> {
       },
       child: CustomPaint(
         size: size,
-        painter: ChartPainter(params: _painterParams!),
+        painter: ChartPainter(params: _logic.painterParams!),
       ),
     );
   }

@@ -33,42 +33,70 @@ class _MyHomePageState extends State<MyApp> {
       ),
       home: Scaffold(
         appBar: AppBar(
-          title: const Text("Flutter Candle Chart"),
+          title: const Text("Flutter Candle Chart", style: TextStyle(fontWeight: FontWeight.w500),),
           actions: [
-            _changeModeButton(),
+            _modeChangeBtn(),
           ],
         ),
         body: GetBuilder(
           builder: (RootLogic logic) {
-            return Column(
-              children: [
-                Container(
-                color: Colors.grey,
-                height: 300,
-                margin: const EdgeInsets.symmetric(horizontal: 20),
-                child: CandleChart(
-                  candles: MockData.candles,
-                  logic: _candleLogic,
-                )),
+            return SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                  height: 300,
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
+                  child: CandleChart(
+                    candles: MockData.candles,
+                    logic: _candleLogic,
+                  )),
+              
+              
+                  Wrap(
+                    alignment: WrapAlignment.spaceEvenly,
+                    spacing: 10,
+                    children: [
 
+                      _button("Time Mode"),
+                      _button("K Line Mode"),
+                      _button("Trend Line"),
+              
+                      _button("Main MA"),
+                      _button("Main EMA"),
+                      _button("Main VWAP"),
+                      _button("Main BOLL"),
+                      _button("Main DC"),
+                      _button("Main IC"),
+                      _button("Main KC"),
+                      _button("Main VP"),
+              
+                      _button("Secondary ADX"),
+                      _button("Secondary AO"),
+                      _button("Secondary ATR"),
+                      _button("Secondary DMA"),
+                      _button("Secondary DMI"),
+                      _button("Secondary DPO"),
+                      _button("Secondary EWO"),
+                      _button("Secondary MACD"),
+                      _button("Secondary TRI"),
+                      _button("Secondary CCI"),
+                      _button("Secondary KDJ"),
+                      _button("Secondary RSI"),
+                      _button("Secondary TSI"),
+                      _button("Secondary ROC"),
+                      _button("Secondary MFI"),
+                      _button("Secondary OBV"),
+                      _button("Secondary VOL"),
+                      _button("Secondary ADL"),
+                      _button("Secondary WR"),
+                      _button("Secondary BBW"),
+                      _button("Secondary SAR"),
 
-                Wrap(
-                  alignment: WrapAlignment.spaceEvenly,
-                  children: [
-                    _button("Time Mode"),
-                    _button("K Line Mode"),
-                    _button("Trend Line"),
-
-                    _button("Main MA"),
-                    _button("Main MA"),
-                    _button("Main MA"),
-                    _button("Main MA"),
-                    _button("Main MA"),
-
-                  ],
-                )
-
-              ],
+                    ],
+                  )
+              
+                ],
+              ),
             );
           },
         ),
@@ -93,7 +121,6 @@ class _MyHomePageState extends State<MyApp> {
         }
       },
       style: TextButton.styleFrom(
-        // primary: Colors.white,
         minimumSize: const Size(88, 44),
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         shape: const RoundedRectangleBorder(
@@ -101,12 +128,12 @@ class _MyHomePageState extends State<MyApp> {
         ),
         backgroundColor: Colors.blue,
       ),
-      child: Text(text),
+      child: Text(text, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),),
     );
   }
 
 
-  Widget _changeModeButton() {
+  Widget _modeChangeBtn() {
     return Obx(() {
       return IconButton(
         icon: Icon(

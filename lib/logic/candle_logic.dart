@@ -2,37 +2,72 @@
 import 'dart:ui';
 import 'package:flutter_candle_chart/model/candle_data.dart';
 import 'package:flutter_candle_chart/model/painter_params.dart';
+import 'package:flutter_candle_chart/style/chart_style.dart';
 import 'package:get/get.dart';
 
 class CandleLogic extends GetxController {
 
   List<CandleData> candles = [];
-  PainterParams? painterParams;
+  late PainterParams painterParams;
 
   double startOffset = 0;
-
-  bool isScaling = false;
-  bool isLongPressing = false;
-
   double width = 0.0;
 
   late Size size;
 
   /// 初始化数据
-  void initData(List<CandleData> candles) {
+  void initData(List<CandleData> candles, List<CandleData> data, int visibleCount, ChartStyle chartStyle) {
 
+    this.candles = candles;
   }
 
   /// 处理大小变化
-  void handleResize(Size size) {
-    this.size = size;
+  void handleResize(Size size, int visibleCount) {
 
-    // startOffset = candles.length * painterParams!.chartStyle.candleWidth;
+    if (this.size == size) {
+
+    } else {
+      this.size = size;
+      final candleWidth = size.width / visibleCount;
+      startOffset = (candles.length - visibleCount) * candleWidth;
+
+      final int start = (startOffset / candleWidth).floor();
+      final int count = (size.width / candleWidth).ceil();
+      final int end = (start + count).clamp(start, candles.length);
+
+      final candlesInRange = candles.getRange(start, end).toList();
+
+      double maxPrice = 0.0;
+      double minPrice = 0.0;
+
+      if (end < candles.length) {
+        final nextItem = candles[end];
+        candlesInRange.add(nextItem);
+      }
+
+      final halfCandle = candleWidth / 2;
+      final fractionCandle = startOffset - start * candleWidth;
+      final xShift = halfCandle - fractionCandle;
+
+
+
+
+
+      painterParams = PainterParams(candles: candles, maxPrice: maxPrice, minPrice: minPrice, size: size);
+    }
+
   }
 
+
+  void calculateChart() {
+
+  }
+
+
   /// 刷新数据
-  void refreshData(List<CandleData> data) {
+  void refreshData(List<CandleData> data, int visibleCount, ChartStyle chartStyle) {
     candles = data;
+
     update();
   }
 

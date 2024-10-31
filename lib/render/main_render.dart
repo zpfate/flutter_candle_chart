@@ -2,8 +2,9 @@
 import 'dart:math';
 import 'dart:ui';
 import 'package:flutter_candle_chart/model/painter_params.dart';
+import 'package:flutter_candle_chart/render/chart_render.dart';
 
-class MainRender {
+class MainRender with ChartRender {
 
   static void drawMainChart(Canvas canvas, Size size, PainterParams params) {
 
