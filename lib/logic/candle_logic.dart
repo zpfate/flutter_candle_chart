@@ -1,4 +1,5 @@
 
+import 'dart:math';
 import 'dart:ui';
 import 'package:flutter_candle_chart/model/candle_data.dart';
 import 'package:flutter_candle_chart/model/painter_params.dart';
@@ -13,10 +14,10 @@ class CandleLogic extends GetxController {
   double startOffset = 0;
   double width = 0.0;
 
-  late Size size;
+  Size? size;
 
   /// 初始化数据
-  void initData(List<CandleData> candles, List<CandleData> data, int visibleCount, ChartStyle chartStyle) {
+  void initData(List<CandleData> candles) {
 
     this.candles = candles;
   }
@@ -30,6 +31,7 @@ class CandleLogic extends GetxController {
       this.size = size;
       final candleWidth = size.width / visibleCount;
       startOffset = (candles.length - visibleCount) * candleWidth;
+      startOffset = max(startOffset, 0);
 
       final int start = (startOffset / candleWidth).floor();
       final int count = (size.width / candleWidth).ceil();
@@ -37,8 +39,8 @@ class CandleLogic extends GetxController {
 
       final candlesInRange = candles.getRange(start, end).toList();
 
-      double maxPrice = 0.0;
-      double minPrice = 0.0;
+      double maxPrice = 30.0;
+      double minPrice = 60.0;
 
       if (end < candles.length) {
         final nextItem = candles[end];
@@ -49,15 +51,11 @@ class CandleLogic extends GetxController {
       final fractionCandle = startOffset - start * candleWidth;
       final xShift = halfCandle - fractionCandle;
 
-
-
-
-
-      painterParams = PainterParams(candles: candles, maxPrice: maxPrice, minPrice: minPrice, size: size);
+      painterParams = PainterParams(candles: candles, maxPrice: maxPrice, minPrice: minPrice, size: size, chartStyle: ChartStyle(
+        candleWidth: candleWidth,
+      ));
     }
-
   }
-
 
   void calculateChart() {
 

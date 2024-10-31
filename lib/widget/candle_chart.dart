@@ -32,13 +32,12 @@ class _CandleChartState extends State<CandleChart> {
 
   /// 获取logic
   CandleLogic get _logic => widget.logic ?? Get.put(CandleLogic());
-  PainterParams? _painterParams;
 
   @override
   void initState() {
     // TODO: implement initState
 
-
+    _logic.initData(widget.candles);
     super.initState();
   }
 
@@ -48,13 +47,6 @@ class _CandleChartState extends State<CandleChart> {
 
       final size = constraints.biggest;
       _logic.handleResize(size, widget.visibleCount);
-
-      _painterParams = PainterParams(
-          size: size,
-          candles: widget.candles,
-          maxPrice: 60,
-          minPrice: 30,
-          chartStyle: const ChartStyle(candleWidth: 10));
 
       return GetBuilder<CandleLogic>(builder: (logic) {
         return _gestureWidget(size);
