@@ -11,6 +11,7 @@ class CandleLogic extends GetxController {
   List<CandleData> candles = [];
   late PainterParams painterParams;
 
+  /// 起始offset
   double startOffset = 0;
   double width = 0.0;
 
@@ -18,7 +19,6 @@ class CandleLogic extends GetxController {
 
   /// 初始化数据
   void initData(List<CandleData> candles) {
-
     this.candles = candles;
   }
 
@@ -28,6 +28,7 @@ class CandleLogic extends GetxController {
     if (this.size == size) {
 
     } else {
+
       this.size = size;
       final candleWidth = size.width / visibleCount;
       startOffset = (candles.length - visibleCount) * candleWidth;
@@ -39,17 +40,21 @@ class CandleLogic extends GetxController {
 
       final candlesInRange = candles.getRange(start, end).toList();
 
-      double maxPrice = 30.0;
-      double minPrice = 60.0;
+      double maxPrice = 0.0;
+      double minPrice = double.maxFinite;
 
       if (end < candles.length) {
         final nextItem = candles[end];
         candlesInRange.add(nextItem);
+        /// 计算一下最大值和最小值
+        maxPrice = max(maxPrice, nextItem.maxValue);
+        minPrice = min(minPrice, nextItem.minValue);
       }
 
       final halfCandle = candleWidth / 2;
       final fractionCandle = startOffset - start * candleWidth;
       final xShift = halfCandle - fractionCandle;
+
 
       painterParams = PainterParams(candles: candles, maxPrice: maxPrice, minPrice: minPrice, size: size, chartStyle: ChartStyle(
         candleWidth: candleWidth,
@@ -65,7 +70,6 @@ class CandleLogic extends GetxController {
   /// 刷新数据
   void refreshData(List<CandleData> data, int visibleCount, ChartStyle chartStyle) {
     candles = data;
-
     update();
   }
 

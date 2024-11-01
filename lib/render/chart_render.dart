@@ -7,7 +7,6 @@ mixin ChartRender {
 
   }
 
-
   void drawLine() {
 
   }

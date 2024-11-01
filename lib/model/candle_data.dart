@@ -1,3 +1,5 @@
+import 'dart:math';
+
 class CandleData {
 
   /// 开盘价
@@ -22,7 +24,19 @@ class CandleData {
       required this.volume});
 
   /// 是涨
-  bool get isRise {
+  bool get isUp {
     return close > open;
+  }
+
+  double? _maxValue;
+  double? _minValue;
+  double get maxValue {
+    _maxValue ??= [open, close, low].reduce(max);
+    return _maxValue!;
+  }
+
+  double get minValue {
+    _minValue ??= [open, close, low].reduce(min);
+    return _minValue!;
   }
 }
