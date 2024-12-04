@@ -57,40 +57,11 @@ class _MyHomePageState extends State<MyApp> {
                     spacing: 10,
                     children: [
 
-                      _button("Time Mode"),
-                      _button("K Line Mode"),
-                      _button("Trend Line"),
-              
-                      _button("Main MA"),
-                      _button("Main EMA"),
-                      _button("Main VWAP"),
-                      _button("Main BOLL"),
-                      _button("Main DC"),
-                      _button("Main IC"),
-                      _button("Main KC"),
-                      _button("Main VP"),
-              
-                      _button("Secondary ADX"),
-                      _button("Secondary AO"),
-                      _button("Secondary ATR"),
-                      _button("Secondary DMA"),
-                      _button("Secondary DMI"),
-                      _button("Secondary DPO"),
-                      _button("Secondary EWO"),
-                      _button("Secondary MACD"),
-                      _button("Secondary TRI"),
-                      _button("Secondary CCI"),
-                      _button("Secondary KDJ"),
-                      _button("Secondary RSI"),
-                      _button("Secondary TSI"),
-                      _button("Secondary ROC"),
-                      _button("Secondary MFI"),
-                      _button("Secondary OBV"),
-                      _button("Secondary VOL"),
-                      _button("Secondary ADL"),
-                      _button("Secondary WR"),
-                      _button("Secondary BBW"),
-                      _button("Secondary SAR"),
+                      // _button("Time Mode"),
+                      // _button("K Line Mode"),
+                      // _button("Trend Line"),
+
+                      ..._rootLogic.enums.map((e) => _button(e)),
 
                     ],
                   )
@@ -112,25 +83,31 @@ class _MyHomePageState extends State<MyApp> {
   }
 
 
-  Widget _button(String text, {VoidCallback? onPressed}) {
+  Widget _button(ChartEnum chartEnum, {VoidCallback? onPressed}) {
+
+    bool selected = _rootLogic.usedEnums.contains(chartEnum);
+
     return TextButton(
       onPressed: () {
-        if (onPressed != null) {
-          onPressed();
           setState(() {
+            if (selected) {
+              _rootLogic.usedEnums.remove(chartEnum);
+            } else {
+              _rootLogic.usedEnums.add(chartEnum);
+            }
 
           });
-        }
       },
       style: TextButton.styleFrom(
-        minimumSize: const Size(88, 44),
+        minimumSize: const Size(40, 44),
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(2.0)),
         ),
-        backgroundColor: Colors.blue,
+        backgroundColor: selected ?  Colors.blue : Colors.grey
       ),
-      child: Text(text, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),),
+
+      child: Text(chartEnum.name, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),),
     );
   }
 

@@ -1,24 +1,52 @@
 
 import 'dart:ui';
 
-enum MainEnum {
+abstract class ChartEnum {
+  String get name;
+}
+
+enum MainEnum implements ChartEnum {
   MA,
   EMA,
   BOLL,
+  DC,
+  VWAP,
   IC,
+  KC,
+  VP;
+
+  @override
+  // TODO: implement name
+  String get name => toString().split(".").last;
 }
 
-extension MainEnumExtension on MainEnum {
 
-  String get name {
-    return toString().split(".").last;
-  }
-}
-
-enum SecondaryEnum {
+enum SecondaryEnum implements ChartEnum {
   VOL,
+  ADX,
+  AO,
   MACD,
+  ATR,
+  DMA,
   DMI,
+  DPO,
+  EWO,
+  TRI,
+  CCI,
+  KDJ,
+  RSI,
+  TSI,
+  ROC,
+  MFI,
+  OBV,
+  ADL,
+  WR,
+  BBW,
+  SAR;
+
+  @override
+  // TODO: implement name
+  String get name => toString().split(".").last;
 }
 
 extension SecondaryEnumExtension on SecondaryEnum {

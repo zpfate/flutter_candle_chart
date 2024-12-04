@@ -4,6 +4,7 @@ import 'package:flutter_candle_chart/model/candle_painter_params.dart';
 import 'package:flutter_candle_chart/render/chart_render.dart';
 
 class MainRender with ChartRender {
+
   static void drawMainChart(Canvas canvas, Size size, CandlePainterParams params) {
     canvas.save();
     canvas.clipRect(Offset.zero & Size(params.width, params.mainHeight));
