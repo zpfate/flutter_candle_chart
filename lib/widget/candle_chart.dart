@@ -120,7 +120,7 @@ class _CandleChartState extends State<CandleChart> {
     final dx = _logic.painterParams.tapPosition!.dx;
     final index = _logic.painterParams.getIndexFromOffset(dx);
 
-    if (index < 0 || index >= widget.candles.length) {
+    if (index < 0 || index >= _logic.painterParams.candles.length) {
       return;
     }
 

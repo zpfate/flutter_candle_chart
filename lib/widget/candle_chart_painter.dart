@@ -15,6 +15,7 @@ class CandleChartPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
 
+    canvas.save();
     canvas.translate(params.xShift, 0);
 
     /// Draw main chart
@@ -22,6 +23,8 @@ class CandleChartPainter extends CustomPainter {
 
     /// Draw tap highlight
     _drawTapHighlight(canvas, params);
+
+    canvas.restore();
 
   }
 
