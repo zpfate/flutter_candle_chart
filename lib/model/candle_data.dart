@@ -30,6 +30,7 @@ class CandleData {
 
   double? _maxValue;
   double? _minValue;
+
   double get maxValue {
     _maxValue ??= [open, close, low].reduce(max);
     return _maxValue!;

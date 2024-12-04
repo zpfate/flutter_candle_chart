@@ -17,7 +17,7 @@ class ChartStyle {
   /// 主图高度
   final double mainChartHeight;
 
-  /// 副图高度
+  /// 单个副图高度
   final double subChartHeight;
 
   /// 涨色
@@ -47,6 +47,7 @@ class ChartStyle {
     this.subChartHeight = 100.0,
     this.gainColor = Colors.red,
     this.lossColor = Colors.green,
+
     this.timeLabelStyle = const TextStyle(
       fontSize: 16,
       color: Colors.grey,

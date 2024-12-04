@@ -1,13 +1,16 @@
 import 'dart:math';
 import 'dart:ui';
 import 'package:flutter_candle_chart/model/candle_data.dart';
-import 'package:flutter_candle_chart/model/painter_params.dart';
+import 'package:flutter_candle_chart/model/candle_enum.dart';
+import 'package:flutter_candle_chart/model/candle_painter_params.dart';
 import 'package:flutter_candle_chart/style/chart_style.dart';
 import 'package:get/get.dart';
 
 class CandleLogic extends GetxController {
+  GestureState gestureState = GestureState.normal;
+
   List<CandleData> candles = [];
-  late PainterParams painterParams;
+  late CandlePainterParams painterParams;
 
   /// 起始offset
   double startOffset = 0;
@@ -57,7 +60,8 @@ class CandleLogic extends GetxController {
       final fractionCandle = startOffset - start * candleWidth;
       final xShift = halfCandle - fractionCandle;
 
-      painterParams = PainterParams(
+      painterParams = CandlePainterParams(
+          xShift: xShift,
           candles: candlesInRange,
           maxPrice: maxPrice,
           minPrice: minPrice,
@@ -69,6 +73,10 @@ class CandleLogic extends GetxController {
       update();
     }
   }
+
+  void handleScale() {}
+
+  void handleHorizontalDrag() {}
 
   void calculateChart() {}
 

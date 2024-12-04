@@ -1,24 +1,25 @@
 import 'dart:math';
 import 'dart:ui';
-import 'package:flutter_candle_chart/model/painter_params.dart';
+import 'package:flutter_candle_chart/model/candle_painter_params.dart';
 import 'package:flutter_candle_chart/render/chart_render.dart';
 
 class MainRender with ChartRender {
-  static void drawMainChart(Canvas canvas, Size size, PainterParams params) {
+  static void drawMainChart(Canvas canvas, Size size, CandlePainterParams params) {
     canvas.save();
-    canvas.clipRect(Offset.zero & Size(size.width, params.mainHeight));
+    canvas.clipRect(Offset.zero & Size(params.width, params.mainHeight));
+    canvas.translate(params.xShift, 0);
     _drawCandles(canvas, size, params);
     canvas.restore();
   }
 
-  static void _drawCandles(Canvas canvas, Size size, PainterParams params) {
+  static void _drawCandles(Canvas canvas, Size size, CandlePainterParams params) {
     for (int i = 0; i < params.candles.length; i++) {
       _drawSingleDay(canvas, params, i, size);
     }
   }
 
   static void _drawSingleDay(
-      Canvas canvas, PainterParams params, int i, Size size) {
+      Canvas canvas, CandlePainterParams params, int i, Size size) {
     final candleWidth = params.chartStyle.candleWidth;
     final candle = params.candles[i];
     final x = i * candleWidth;

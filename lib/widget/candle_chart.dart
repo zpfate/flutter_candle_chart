@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_candle_chart/logic/candle_logic.dart';
 import 'package:flutter_candle_chart/model/candle_data.dart';
+import 'package:flutter_candle_chart/model/candle_enum.dart';
 import 'package:flutter_candle_chart/style/chart_style.dart';
-import 'package:flutter_candle_chart/widget/chart_painter.dart';
+import 'package:flutter_candle_chart/widget/candle_chart_painter.dart';
 import 'package:get/get.dart';
 
 class CandleChart extends StatefulWidget {
@@ -29,7 +30,7 @@ class CandleChart extends StatefulWidget {
 
 class _CandleChartState extends State<CandleChart> {
 
-  /// 获取logic
+  // 获取logic
   CandleLogic get _logic => widget.logic ?? Get.put(CandleLogic());
 
   @override
@@ -56,41 +57,76 @@ class _CandleChartState extends State<CandleChart> {
   Widget _gestureWidget(Size size) {
 
     return GestureDetector(
+
       onDoubleTap: widget.onDoubleTap,
       onLongPressStart: (details) {
-        debugPrint("onLongPressStart");
+
+        if (_logic.gestureState.isNormal) {
+          _logic.gestureState = GestureState.longPress;
+          handleLongPressed(details.localPosition);
+          _logic.update();
+        }
+        debugPrint("长按开始---onLongPressStart");
+
       },
       onLongPressMoveUpdate: (details) {
-        debugPrint("onLongPressMoveUpdate");
+        debugPrint("长按中---onLongPressMoveUpdate");
+        handleLongPressed(details.localPosition);
       },
       onLongPressEnd: (details) {
-        debugPrint("onLongPressEnd");
+        debugPrint("长按结束--onLongPressEnd");
+
+        _logic.gestureState = GestureState.normal;
+        _logic.painterParams.tapPosition = null;
+        _logic.update();
+
       },
       onHorizontalDragStart: (details) {
-        debugPrint("onHorizontalDragStart");
+        if (_logic.gestureState.isNormal) {
+
+        }
+        debugPrint("平移开始--onHorizontalDragStart");
       },
       onHorizontalDragUpdate: (details) {
-        debugPrint("onHorizontalDragUpdate");
+        debugPrint("平移中--onHorizontalDragUpdate");
       },
       onHorizontalDragEnd: (details) {
-        debugPrint("onHorizontalDragEnd");
+        debugPrint("平移结束--onHorizontalDragEnd");
       },
-
       onScaleStart: (details) {
-        debugPrint("onScaleStart");
+        if (_logic.gestureState.isNormal) {
+
+        }
+        debugPrint("缩放开始--onScaleStart");
       },
       onScaleUpdate: (details) {
-        debugPrint("onScaleUpdate");
+        debugPrint("缩放中--onScaleUpdate");
       },
       onScaleEnd: (details) {
-        debugPrint("onScaleEnd");
+        debugPrint("缩放结束--onScaleEnd");
       },
       child: CustomPaint(
         size: size,
-        painter: ChartPainter(params: _logic.painterParams),
+        painter: CandleChartPainter(params: _logic.painterParams),
       ),
     );
   }
 
+
+  void handleLongPressed(Offset localPosition) {
+
+    _logic.painterParams.tapPosition = localPosition;
+
+    final dx = _logic.painterParams.tapPosition!.dx;
+    final index = _logic.painterParams.getIndexFromOffset(dx);
+
+    if (index < 0 || index >= widget.candles.length) {
+      return;
+    }
+
+    final candle = _logic.painterParams.candles[index];
+    widget.onLongPressed?.call(candle);
+    _logic.update();
+  }
 
 }
