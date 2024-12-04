@@ -4,8 +4,10 @@ class ChartStyle {
 
   /// 正常显示个数
   final int visibleCount;
+
   /// 至少显示个数
   final int minVisibleCount;
+
   /// 最多显示个数
   final int maxVisibleCount;
 
@@ -23,11 +25,17 @@ class ChartStyle {
 
   /// 跌色
   final Color lossColor;
+
   /// 长按选中色
   final Color selectionHighlightColor;
 
+  /// 时间文本样式
   final TextStyle timeLabelStyle;
+
+  /// 价格文本背景色
   final Color priceBgColor;
+
+  /// 价格文本样式
   final TextStyle priceLabelStyle;
 
   const ChartStyle({
@@ -35,7 +43,7 @@ class ChartStyle {
     this.minVisibleCount = 9,
     this.maxVisibleCount = 240,
     this.candleWidth = 1.0,
-    this.mainChartHeight = 200.0,
+    this.mainChartHeight = 300.0,
     this.subChartHeight = 100.0,
     this.gainColor = Colors.red,
     this.lossColor = Colors.green,

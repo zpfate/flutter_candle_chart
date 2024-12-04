@@ -1,13 +1,10 @@
-
 import 'dart:math';
 import 'dart:ui';
 import 'package:flutter_candle_chart/model/painter_params.dart';
 import 'package:flutter_candle_chart/render/chart_render.dart';
 
 class MainRender with ChartRender {
-
   static void drawMainChart(Canvas canvas, Size size, PainterParams params) {
-
     canvas.save();
     canvas.clipRect(Offset.zero & Size(size.width, params.mainHeight));
     _drawCandles(canvas, size, params);
@@ -20,8 +17,8 @@ class MainRender with ChartRender {
     }
   }
 
-  static void _drawSingleDay(Canvas canvas, PainterParams params, int i, Size size) {
-
+  static void _drawSingleDay(
+      Canvas canvas, PainterParams params, int i, Size size) {
     final candleWidth = params.chartStyle.candleWidth;
     final candle = params.candles[i];
     final x = i * candleWidth;
@@ -32,61 +29,54 @@ class MainRender with ChartRender {
     final close = candle.close;
     final high = candle.high;
     final low = candle.low;
-    if (open != null && close != null) {
-      /// 取出涨跌
-      bool isGained = close > open;
-      final openY = params.mainChartPrice(open);
-      final closeY = params.mainChartPrice(close);
-      if (isGained) {
-        /// 涨的话画矩形线框
-        canvas.drawRect(
-            Rect.fromLTWH(
-                x - thickWidth / 2, closeY, thickWidth, openY - closeY),
-            Paint()
-              ..style = PaintingStyle.stroke
-              ..strokeWidth = 1
-              ..color = params.chartStyle.gainColor);
 
-        if (high != null && low != null) {
-          canvas.drawLine(
-            Offset(x, params.mainChartPrice(high)),
-            Offset(x, params.mainChartPrice(close)),
-            Paint()
-              ..strokeWidth = 1
-              ..color =  params.chartStyle.gainColor,
-          );
-
-          canvas.drawLine(
-            Offset(x, openY),
-            Offset(x, params.mainChartPrice(low)),
-            Paint()
-              ..strokeWidth = 1
-              ..color = params.chartStyle.gainColor,
-          );
-        }
-      } else {
-        /// 如果开盘价==收盘价, 0.5高度 否则画不出
-        double margin = openY - closeY == 0 ? 0.5 : 0;
-        canvas.drawLine(
-          Offset(x, openY),
-          Offset(x, closeY + margin),
+    /// 取出涨跌
+    bool isGained = close > open;
+    final openY = params.mainChartPrice(open);
+    final closeY = params.mainChartPrice(close);
+    if (isGained) {
+      /// 涨的话画矩形线框
+      canvas.drawRect(
+          Rect.fromLTWH(x - thickWidth / 2, closeY, thickWidth, openY - closeY),
           Paint()
-            ..strokeWidth = thickWidth
-            ..color = params.chartStyle.lossColor,
-        );
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = 1
+            ..color = params.chartStyle.gainColor);
 
-        /// 绘制最高价和最低价
-        if (high != null && low != null) {
-          canvas.drawLine(
-            Offset(x, params.mainChartPrice(high)),
-            Offset(x, params.mainChartPrice(low)),
-            Paint()
-              ..strokeWidth = 1
-              ..color = params.chartStyle.lossColor,
-          );
-        }
-      }
+      canvas.drawLine(
+        Offset(x, params.mainChartPrice(high)),
+        Offset(x, params.mainChartPrice(close)),
+        Paint()
+          ..strokeWidth = 1
+          ..color = params.chartStyle.gainColor,
+      );
 
+      canvas.drawLine(
+        Offset(x, openY),
+        Offset(x, params.mainChartPrice(low)),
+        Paint()
+          ..strokeWidth = 1
+          ..color = params.chartStyle.gainColor,
+      );
+    } else {
+      /// 如果开盘价==收盘价, 0.5高度 否则画不出
+      double margin = openY - closeY == 0 ? 0.5 : 0;
+      canvas.drawLine(
+        Offset(x, openY),
+        Offset(x, closeY + margin),
+        Paint()
+          ..strokeWidth = thickWidth
+          ..color = params.chartStyle.lossColor,
+      );
+
+      /// 绘制最高价和最低价
+      canvas.drawLine(
+        Offset(x, params.mainChartPrice(high)),
+        Offset(x, params.mainChartPrice(low)),
+        Paint()
+          ..strokeWidth = 1
+          ..color = params.chartStyle.lossColor,
+      );
     }
   }
 }

@@ -45,13 +45,13 @@ class _MyHomePageState extends State<MyApp> {
                 children: [
                   Container(
                   height: 300,
-                  margin: const EdgeInsets.symmetric(horizontal: 20),
+                  margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                   child: CandleChart(
                     candles: MockData.candles,
+                    visibleCount: 50,
                     logic: _candleLogic,
                   )),
-              
-              
+
                   Wrap(
                     alignment: WrapAlignment.spaceEvenly,
                     spacing: 10,
@@ -117,7 +117,9 @@ class _MyHomePageState extends State<MyApp> {
       onPressed: () {
         if (onPressed != null) {
           onPressed();
-          setState(() {});
+          setState(() {
+
+          });
         }
       },
       style: TextButton.styleFrom(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_candle_chart/logic/candle_logic.dart';
 import 'package:flutter_candle_chart/model/candle_data.dart';
-import 'package:flutter_candle_chart/model/painter_params.dart';
 import 'package:flutter_candle_chart/style/chart_style.dart';
 import 'package:flutter_candle_chart/widget/chart_painter.dart';
 import 'package:get/get.dart';
@@ -35,8 +34,8 @@ class _CandleChartState extends State<CandleChart> {
 
   @override
   void initState() {
-    // TODO: implement initState
 
+    // TODO: implement initState
     _logic.initData(widget.candles);
     super.initState();
   }
@@ -88,9 +87,10 @@ class _CandleChartState extends State<CandleChart> {
       },
       child: CustomPaint(
         size: size,
-        painter: ChartPainter(params: _logic.painterParams!),
+        painter: ChartPainter(params: _logic.painterParams),
       ),
     );
   }
+
 
 }
