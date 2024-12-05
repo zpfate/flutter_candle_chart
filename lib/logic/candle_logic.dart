@@ -11,12 +11,18 @@ class CandleLogic extends GetxController {
   GestureState gestureState = GestureState.normal;
 
   List<CandleData> candles = [];
-  late CandlePainterParams painterParams;
+
+  CandlePainterParams? prevParams;
+  late CandlePainterParams params;
 
   /// 起始offset
   double startOffset = 0;
+
   Size? size;
+
   late double _candleWidth;
+
+  late int currentCount;
 
   /// 初始化数据
   void init(
@@ -25,6 +31,7 @@ class CandleLogic extends GetxController {
     int visibleCount = 69,
   }) {
     this.candles = candles;
+    currentCount = visibleCount;
   }
 
   /// 处理大小变化
@@ -42,6 +49,7 @@ class CandleLogic extends GetxController {
   }
 
   void calculateCandles() {
+
     final int start = min((startOffset / _candleWidth).floor(), candles.length);
     final int count = (size!.width / _candleWidth).ceil();
     final int end = (start + count).clamp(start, candles.length);
@@ -69,7 +77,7 @@ class CandleLogic extends GetxController {
     final fractionCandle = startOffset - start * _candleWidth;
     final xShift = halfCandle - fractionCandle;
 
-    painterParams = CandlePainterParams(
+    params = CandlePainterParams(
         candleWidth: _candleWidth,
         startOffset: startOffset,
         xShift: xShift,
@@ -100,5 +108,10 @@ class CandleLogic extends GetxController {
   void loadData(List<CandleData> data) {
     candles.insertAll(0, data);
     update();
+  }
+
+
+  double get maxOffsetX {
+    return _candleWidth * (candles.length - currentCount);
   }
 }

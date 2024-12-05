@@ -47,4 +47,6 @@ class CandlePainterParams {
   double get mainHeight {
     return chartStyle.mainChartHeight;
   }
+
+
 }
