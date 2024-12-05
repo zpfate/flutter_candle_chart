@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'dart:ui';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_candle_chart/model/candle_data.dart';
 import 'package:flutter_candle_chart/model/candle_enum.dart';
 import 'package:flutter_candle_chart/model/candle_painter_params.dart';
@@ -56,6 +57,9 @@ class CandleLogic extends GetxController {
 
     final candlesInRange = candles.getRange(start, end).toList();
 
+
+    debugPrint("start == $start, end == $end, total == ${candles.length}");
+
     if (end < candles.length) {
       // Put in an extra item, since it can become visible when scrolling
       final nextItem = candles[end];
@@ -85,7 +89,7 @@ class CandleLogic extends GetxController {
         maxPrice: maxPrice,
         minPrice: minPrice,
         size: size!,
-        chartStyle: const ChartStyle());
+        style: const ChartStyle());
 
     update();
   }

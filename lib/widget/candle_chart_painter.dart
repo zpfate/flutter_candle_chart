@@ -16,7 +16,7 @@ class CandleChartPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
 
     canvas.save();
-    canvas.translate(params.xShift, 0);
+    // canvas.translate(params.xShift, 0);
 
     /// Draw main chart
     MainRender.drawMainChart(canvas, size, params);
@@ -47,19 +47,44 @@ class CandleChartPainter extends CustomPainter {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              Colors.black.withOpacity(0.90),
-              Colors.black.withOpacity(0.99),
-              Colors.black.withOpacity(0.90),
+              params.style.selectionHighlightColor.withOpacity(0.90),
+              params.style.selectionHighlightColor.withOpacity(0.99),
+              params.style.selectionHighlightColor.withOpacity(0.90),
             ],
           ).createShader(Rect.fromLTWH(index * params.candleWidth, 0,
               params.candleWidth, params.size.height))
-      ..color = params.chartStyle.selectionHighlightColor
+      ..color = params.style.selectionHighlightColor
     );
-
-
+    
+    /// 绘制横向虚线
+    _drawHorizontalLine(canvas);
     canvas.restore();
   }
+  
+  void _drawHorizontalLine(Canvas canvas) {
+    /// 绘制横线
+    final Paint paint = Paint()
+      ..color = params.style.trendLineColor
+      ..strokeWidth = 1 // Height of the dashed line
+      ..strokeCap = StrokeCap.square;
 
+    const double dashWidth = 1.0;
+    const double dashSpace = 3.0;
+    double currentX = 0.0;
+
+    double validY = params.tapPosition!.dy.clamp(0, params.mainHeight);
+
+    while (currentX < params.width) {
+      canvas.drawLine(
+        Offset(currentX, validY),
+        Offset(currentX + dashWidth, validY),
+        paint,
+      );
+      currentX += dashWidth + dashSpace;
+    }
+  }
+  
+  
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
     // TODO: implement shouldRepaint

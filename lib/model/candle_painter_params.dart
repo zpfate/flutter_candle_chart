@@ -15,7 +15,7 @@ class CandlePainterParams {
   Offset? tapPosition;
   double? startOffset;
 
-  final ChartStyle chartStyle;
+  final ChartStyle style;
 
   CandlePainterParams({
     required this.xShift,
@@ -28,7 +28,7 @@ class CandlePainterParams {
     required this.size,
     this.tapPosition,
     this.startOffset,
-    this.chartStyle = const ChartStyle(),
+    this.style = const ChartStyle(),
   });
 
   double mainChartPrice(double y) {
@@ -45,7 +45,7 @@ class CandlePainterParams {
   }
 
   double get mainHeight {
-    return chartStyle.mainChartHeight;
+    return style.mainChartHeight;
   }
 
 

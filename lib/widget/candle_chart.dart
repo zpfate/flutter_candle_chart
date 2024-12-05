@@ -10,7 +10,7 @@ import 'package:get/get.dart';
 class CandleChart extends StatefulWidget {
   final CandleLogic? logic;
   final List<CandleData> candles;
-  final ChartStyle chartStyle;
+  final ChartStyle style;
   final int visibleCount;
   final VoidCallback? onDoubleTap;
   final LongPressCandleCallback? onLongPressed;
@@ -20,7 +20,7 @@ class CandleChart extends StatefulWidget {
     this.logic,
     this.candles = const [],
     this.visibleCount = 69,
-    this.chartStyle = const ChartStyle(),
+    this.style = const ChartStyle(),
     this.onDoubleTap,
     this.onLongPressed,
   });
@@ -38,7 +38,7 @@ class _CandleChartState extends State<CandleChart> {
     // TODO: implement initState
     _logic.init(
       widget.candles,
-      chartStyle: widget.chartStyle,
+      chartStyle: widget.style,
     );
     super.initState();
   }

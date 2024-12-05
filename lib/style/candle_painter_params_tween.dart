@@ -24,7 +24,7 @@ class CandlePainterParamsTween extends Tween<CandlePainterParams> {
       size: Size.lerp(begin!.size, end!.size, t)!,
       tapPosition: Offset.lerp(begin!.tapPosition, end!.tapPosition, t),
       startOffset: lerpDouble(begin!.startOffset, end!.startOffset, t),
-      chartStyle: end!.chartStyle, // 假设 chartStyle 不需要动画变化
+      style: end!.style, // 假设 chartStyle 不需要动画变化
     );
   }
 }

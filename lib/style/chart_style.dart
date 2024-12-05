@@ -23,6 +23,8 @@ class ChartStyle {
   /// 跌色
   final Color lossColor;
 
+  final Color trendLineColor;
+
   /// 长按选中色
   final Color selectionHighlightColor;
 
@@ -55,6 +57,7 @@ class ChartStyle {
     ),
     this.priceBgColor = Colors.blue,
     this.selectionHighlightColor = Colors.black12,
+    this.trendLineColor = Colors.black12,
   });
 
 }

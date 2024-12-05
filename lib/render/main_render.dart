@@ -44,14 +44,14 @@ class MainRender with ChartRender {
           Paint()
             ..style = PaintingStyle.stroke
             ..strokeWidth = 1
-            ..color = params.chartStyle.gainColor);
+            ..color = params.style.gainColor);
 
       canvas.drawLine(
         Offset(x, params.mainChartPrice(high)),
         Offset(x, params.mainChartPrice(close)),
         Paint()
           ..strokeWidth = 1
-          ..color = params.chartStyle.gainColor,
+          ..color = params.style.gainColor,
       );
 
       canvas.drawLine(
@@ -59,7 +59,7 @@ class MainRender with ChartRender {
         Offset(x, params.mainChartPrice(low)),
         Paint()
           ..strokeWidth = 1
-          ..color = params.chartStyle.gainColor,
+          ..color = params.style.gainColor,
       );
     } else {
       /// 如果开盘价==收盘价, 0.5高度 否则画不出
@@ -69,7 +69,7 @@ class MainRender with ChartRender {
         Offset(x, closeY + margin),
         Paint()
           ..strokeWidth = thickWidth
-          ..color = params.chartStyle.lossColor,
+          ..color = params.style.lossColor,
       );
 
       /// 绘制最高价和最低价
@@ -78,7 +78,7 @@ class MainRender with ChartRender {
         Offset(x, params.mainChartPrice(low)),
         Paint()
           ..strokeWidth = 1
-          ..color = params.chartStyle.lossColor,
+          ..color = params.style.lossColor,
       );
     }
   }
