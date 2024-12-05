@@ -11,9 +11,6 @@ class ChartStyle {
   /// 最多显示个数
   final int maxVisibleCount;
 
-  /// 蜡烛图宽度
-  final double candleWidth;
-
   /// 主图高度
   final double mainChartHeight;
 
@@ -39,10 +36,10 @@ class ChartStyle {
   final TextStyle priceLabelStyle;
 
   const ChartStyle({
+
     this.visibleCount = 69,
     this.minVisibleCount = 9,
     this.maxVisibleCount = 240,
-    this.candleWidth = 1.0,
     this.mainChartHeight = 300.0,
     this.subChartHeight = 100.0,
     this.gainColor = Colors.red,
@@ -59,4 +56,5 @@ class ChartStyle {
     this.priceBgColor = Colors.blue,
     this.selectionHighlightColor = Colors.black12,
   });
+
 }

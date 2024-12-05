@@ -6,10 +6,12 @@ import 'package:flutter_candle_chart/render/chart_render.dart';
 class MainRender with ChartRender {
 
   static void drawMainChart(Canvas canvas, Size size, CandlePainterParams params) {
+
     canvas.save();
     canvas.clipRect(Offset.zero & Size(params.width, params.mainHeight));
     _drawCandles(canvas, size, params);
     canvas.restore();
+
   }
 
   static void _drawCandles(Canvas canvas, Size size, CandlePainterParams params) {
@@ -20,7 +22,7 @@ class MainRender with ChartRender {
 
   static void _drawSingleDay(
       Canvas canvas, CandlePainterParams params, int i, Size size) {
-    final candleWidth = params.chartStyle.candleWidth;
+    final candleWidth = params.candleWidth;
     final candle = params.candles[i];
     final x = i * candleWidth;
     final thickWidth = max(candleWidth * 0.8, 0.8);
