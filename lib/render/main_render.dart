@@ -9,6 +9,7 @@ class MainRender with ChartRender {
 
     canvas.save();
     canvas.clipRect(Offset.zero & Size(params.width, params.mainHeight));
+    canvas.translate(params.xShift, 0);
     _drawCandles(canvas, size, params);
     canvas.restore();
 

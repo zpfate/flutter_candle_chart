@@ -116,6 +116,6 @@ class CandleLogic extends GetxController {
 
 
   double get maxOffsetX {
-    return _candleWidth * (candles.length - currentCount);
+    return _candleWidth * (candles.length - currentCount / 2);
   }
 }
