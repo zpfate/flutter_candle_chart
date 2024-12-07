@@ -3,6 +3,7 @@ import 'package:example/root_logic.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_candle_chart/flutter_candle_chart.dart';
 import 'package:flutter_candle_chart/logic/candle_logic.dart';
+import 'package:flutter_candle_chart/style/chart_style.dart';
 import 'package:flutter_candle_chart/widget/candle_chart.dart';
 
 void main() {
@@ -48,8 +49,10 @@ class _MyHomePageState extends State<MyApp> {
                   margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                   child: CandleChart(
                     candles: MockData.candles,
-                    visibleCount: 50,
                     logic: _candleLogic,
+                    style: const ChartStyle(
+                      visibleCount: 50,
+                    ),
                   )),
 
                   Wrap(

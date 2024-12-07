@@ -23,6 +23,7 @@ class MainRender with ChartRender {
 
   static void _drawSingleDay(
       Canvas canvas, CandlePainterParams params, int i, Size size) {
+
     final candleWidth = params.candleWidth;
     final candle = params.candles[i];
     final x = i * candleWidth;

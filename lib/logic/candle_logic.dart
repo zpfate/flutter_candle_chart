@@ -23,20 +23,22 @@ class CandleLogic extends GetxController {
 
   late double _candleWidth;
 
-  late int currentCount;
+  late ChartStyle style;
+
 
   /// 初始化数据
   void init(
     List<CandleData> candles, {
     required ChartStyle chartStyle,
-    int visibleCount = 69,
   }) {
     this.candles = candles;
-    currentCount = visibleCount;
+    style = chartStyle;
   }
 
   /// 处理大小变化
-  void handleResize(Size size, int visibleCount) {
+  void handleResize(Size size) {
+
+    int visibleCount = style.visibleCount;
 
     if (this.size == size) {
       calculateCandles();
@@ -117,5 +119,9 @@ class CandleLogic extends GetxController {
 
   double get maxOffsetX {
     return _candleWidth * (candles.length - currentCount / 2);
+  }
+
+  int get currentCount {
+    return (size!.width / _candleWidth).floor();
   }
 }

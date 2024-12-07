@@ -3,6 +3,7 @@ import 'package:flutter_candle_chart/model/candle_data.dart';
 import 'package:flutter_candle_chart/style/chart_style.dart';
 
 class CandlePainterParams {
+
   final double xShift;
   final List<CandleData> candles;
   final double maxPrice;
@@ -47,6 +48,9 @@ class CandlePainterParams {
   double get mainHeight {
     return style.mainChartHeight;
   }
+
+
+
 
 
 }

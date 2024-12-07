@@ -11,7 +11,6 @@ class CandleChart extends StatefulWidget {
   final CandleLogic? logic;
   final List<CandleData> candles;
   final ChartStyle style;
-  final int visibleCount;
   final VoidCallback? onDoubleTap;
   final LongPressCandleCallback? onLongPressed;
 
@@ -19,7 +18,6 @@ class CandleChart extends StatefulWidget {
     super.key,
     this.logic,
     this.candles = const [],
-    this.visibleCount = 69,
     this.style = const ChartStyle(),
     this.onDoubleTap,
     this.onLongPressed,
@@ -49,7 +47,7 @@ class _CandleChartState extends State<CandleChart> {
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       _size = constraints.biggest;
-      _logic.handleResize(_size, widget.visibleCount);
+      _logic.handleResize(_size);
 
       return GetBuilder<CandleLogic>(builder: (logic) {
         return _gestureWidget();
@@ -101,6 +99,7 @@ class _CandleChartState extends State<CandleChart> {
       },
       onScaleUpdate: (details) {
         debugPrint("缩放中--onScaleUpdate");
+        _handleScaleUpdate(details);
       },
       onScaleEnd: (details) {
         debugPrint("缩放结束--onScaleEnd");
@@ -136,23 +135,27 @@ class _CandleChartState extends State<CandleChart> {
   }
 
   late Offset _dragStartPoint;
-
   _handleHorizontalDragStart(Offset focalPoint) {
     _dragStartPoint = focalPoint;
   }
 
+  /// 处理平移
   void _handleHorizontalDragUpdate(Offset focalPoint) {
-
     final dx = (focalPoint - _dragStartPoint).dx * -1;
     _dragStartPoint = focalPoint;
     _logic.startOffset += dx;
     _logic.startOffset = _logic.startOffset.clamp(0, _logic.maxOffsetX);
-
-
-    _logic.handleResize(_size, widget.visibleCount);
+    _logic.handleResize(_size);
   }
 
   void _handleScaleStart(Offset focalPoint) {}
 
-  void _handleScaleUpdate(Offset localPosition) {}
+  /// 处理缩放
+  void _handleScaleUpdate(ScaleUpdateDetails details) {
+
+    double scale = details.scale.clamp(
+        widget.style.maxVisibleCount / widget.style.visibleCount,
+        widget.style.visibleCount / widget.style.minVisibleCount);
+
+  }
 }
