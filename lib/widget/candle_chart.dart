@@ -8,6 +8,7 @@ import 'package:flutter_candle_chart/widget/candle_chart_painter.dart';
 import 'package:get/get.dart';
 
 class CandleChart extends StatefulWidget {
+
   final CandleLogic? logic;
   final List<CandleData> candles;
   final ChartStyle style;
@@ -57,6 +58,7 @@ class _CandleChartState extends State<CandleChart> {
 
   Widget _gestureWidget() {
     return GestureDetector(
+
       onDoubleTap: widget.onDoubleTap,
       onLongPressStart: (details) {
         if (_logic.gestureState.isNormal) {
@@ -135,11 +137,12 @@ class _CandleChartState extends State<CandleChart> {
   }
 
   late Offset _dragStartPoint;
+
   _handleHorizontalDragStart(Offset focalPoint) {
     _dragStartPoint = focalPoint;
   }
 
-  /// 处理平移
+  /// 处理平
   void _handleHorizontalDragUpdate(Offset focalPoint) {
     final dx = (focalPoint - _dragStartPoint).dx * -1;
     _dragStartPoint = focalPoint;
@@ -148,14 +151,13 @@ class _CandleChartState extends State<CandleChart> {
     _logic.handleResize(_size);
   }
 
-  void _handleScaleStart(Offset focalPoint) {}
+  void _handleScaleStart(Offset focalPoint) {
+
+  }
 
   /// 处理缩放
   void _handleScaleUpdate(ScaleUpdateDetails details) {
-
-    double scale = details.scale.clamp(
-        widget.style.maxVisibleCount / widget.style.visibleCount,
-        widget.style.visibleCount / widget.style.minVisibleCount);
+    _logic.handleScale(details);
 
   }
 }

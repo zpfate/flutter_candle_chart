@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_candle_chart/model/candle_data.dart';
 import 'package:flutter_candle_chart/model/candle_enum.dart';
@@ -59,7 +58,6 @@ class CandleLogic extends GetxController {
 
     final candlesInRange = candles.getRange(start, end).toList();
 
-
     debugPrint("start == $start, end == $end, total == ${candles.length}");
 
     if (end < candles.length) {
@@ -97,9 +95,20 @@ class CandleLogic extends GetxController {
   }
 
 
-  void handleScale() {}
+  void handleScale(ScaleUpdateDetails details) {
+    double candleWidth = _candleWidth * details.scale;
+    candleWidth = candleWidth.clamp(minCandleWidth, maxCandleWidth);
+    double zoomCenter = details.localFocalPoint.dx + startOffset;
+    startOffset = startOffset + (zoomCenter / _candleWidth - zoomCenter / candleWidth) * candleWidth;
+    _candleWidth = candleWidth;
+    debugPrint("startOffset ---- $startOffset, max ---- $maxOffsetX");
+    startOffset = startOffset.clamp(0, maxOffsetX);
+    calculateCandles();
+  }
 
-  void handleHorizontalDrag() {}
+  void handleHorizontalDrag() {
+
+  }
 
   void calculateChart() {}
 
@@ -116,12 +125,15 @@ class CandleLogic extends GetxController {
     update();
   }
 
-
   double get maxOffsetX {
-    return _candleWidth * (candles.length - currentCount / 2);
+    return _candleWidth * (candles.length - currentCount);
   }
 
   int get currentCount {
     return (size!.width / _candleWidth).floor();
   }
+
+  double get minCandleWidth => size!.width / style.maxVisibleCount;
+  double get maxCandleWidth => size!.width / style.minVisibleCount;
+
 }
