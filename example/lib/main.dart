@@ -25,7 +25,7 @@ class _MyHomePageState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
 
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Flutter Candle Chart Demo',
       theme: ThemeData(
         brightness:
@@ -63,7 +63,6 @@ class _MyHomePageState extends State<MyApp> {
                       // _button("Time Mode"),
                       // _button("K Line Mode"),
                       // _button("Trend Line"),
-
                       ..._rootLogic.enums.map((e) => _button(e)),
 
                     ],

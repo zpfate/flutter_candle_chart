@@ -8,7 +8,6 @@ import 'package:flutter_candle_chart/widget/candle_chart_painter.dart';
 import 'package:get/get.dart';
 
 class CandleChart extends StatefulWidget {
-
   final CandleLogic? logic;
   final List<CandleData> candles;
   final ChartStyle style;
@@ -57,9 +56,11 @@ class _CandleChartState extends State<CandleChart> {
   }
 
   Widget _gestureWidget() {
+
     return GestureDetector(
 
       onDoubleTap: widget.onDoubleTap,
+
       onLongPressStart: (details) {
         if (_logic.gestureState.isNormal) {
           _logic.gestureState = GestureState.longPress;
@@ -68,16 +69,19 @@ class _CandleChartState extends State<CandleChart> {
         }
         debugPrint("长按开始---onLongPressStart");
       },
+
       onLongPressMoveUpdate: (details) {
         debugPrint("长按中---onLongPressMoveUpdate");
         _handleLongPress(details.localPosition);
       },
+
       onLongPressEnd: (details) {
         debugPrint("长按结束--onLongPressEnd");
         _logic.gestureState = GestureState.normal;
         _logic.params.tapPosition = null;
         _logic.update();
       },
+
       onHorizontalDragStart: (details) {
         if (_logic.gestureState.isNormal) {
           _logic.gestureState = GestureState.drag;
@@ -85,28 +89,35 @@ class _CandleChartState extends State<CandleChart> {
         }
         debugPrint("平移开始--onHorizontalDragStart");
       },
+
       onHorizontalDragUpdate: (details) {
         _handleHorizontalDragUpdate(details.localPosition);
         // debugPrint("平移中--onHorizontalDragUpdate");
       },
+
       onHorizontalDragEnd: (details) {
         _logic.gestureState = GestureState.normal;
         debugPrint("平移结束--onHorizontalDragEnd");
       },
+
       onScaleStart: (details) {
         if (_logic.gestureState.isNormal) {
           _logic.gestureState = GestureState.scale;
         }
         debugPrint("缩放开始--onScaleStart");
       },
+
       onScaleUpdate: (details) {
         debugPrint("缩放中--onScaleUpdate");
-        _handleScaleUpdate(details);
+        debugPrint("scale === ${details.scale}");
+        _logic.handleScale(details);
       },
+
       onScaleEnd: (details) {
         debugPrint("缩放结束--onScaleEnd");
         _logic.gestureState = GestureState.normal;
       },
+
       child: TweenAnimationBuilder(
           tween: CandlePainterParamsTween(end: _logic.params),
           duration: const Duration(milliseconds: 300),
@@ -142,7 +153,7 @@ class _CandleChartState extends State<CandleChart> {
     _dragStartPoint = focalPoint;
   }
 
-  /// 处理平
+  /// 处理平移
   void _handleHorizontalDragUpdate(Offset focalPoint) {
     final dx = (focalPoint - _dragStartPoint).dx * -1;
     _dragStartPoint = focalPoint;
@@ -155,9 +166,4 @@ class _CandleChartState extends State<CandleChart> {
 
   }
 
-  /// 处理缩放
-  void _handleScaleUpdate(ScaleUpdateDetails details) {
-    _logic.handleScale(details);
-
-  }
 }

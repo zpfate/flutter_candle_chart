@@ -58,8 +58,6 @@ class CandleLogic extends GetxController {
 
     final candlesInRange = candles.getRange(start, end).toList();
 
-    debugPrint("start == $start, end == $end, total == ${candles.length}");
-
     if (end < candles.length) {
       // Put in an extra item, since it can become visible when scrolling
       final nextItem = candles[end];
@@ -94,14 +92,13 @@ class CandleLogic extends GetxController {
     update();
   }
 
-
   void handleScale(ScaleUpdateDetails details) {
     double candleWidth = _candleWidth * details.scale;
     candleWidth = candleWidth.clamp(minCandleWidth, maxCandleWidth);
     double zoomCenter = details.localFocalPoint.dx + startOffset;
     startOffset = startOffset + (zoomCenter / _candleWidth - zoomCenter / candleWidth) * candleWidth;
     _candleWidth = candleWidth;
-    debugPrint("startOffset ---- $startOffset, max ---- $maxOffsetX");
+
     startOffset = startOffset.clamp(0, maxOffsetX);
     calculateCandles();
   }
@@ -126,7 +123,8 @@ class CandleLogic extends GetxController {
   }
 
   double get maxOffsetX {
-    return _candleWidth * (candles.length - currentCount);
+    double offset = _candleWidth * (candles.length - currentCount);
+    return max(0, offset);
   }
 
   int get currentCount {

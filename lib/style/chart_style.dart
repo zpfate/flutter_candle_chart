@@ -60,4 +60,5 @@ class ChartStyle {
     this.trendLineColor = Colors.black12,
   });
 
+
 }
